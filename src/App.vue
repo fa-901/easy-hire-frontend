@@ -4,11 +4,11 @@ import AppLayout from './components/AppLayout.vue';
 </script>
 
 <template>
-  <AppLayout>
-    <template #default>
-      <RouterView />
-    </template>
-  </AppLayout>
+    <AppLayout>
+        <template #default>
+            <RouterView />
+        </template>
+    </AppLayout>
 </template>
 
 <style scoped lang="scss"></style>
