@@ -2,7 +2,16 @@
 
 <template>
     <header>
-        <div class="title">Easy Hire</div>
+        <div class="navbar bg-base-100">
+            <div class="flex-1">
+                <RouterLink :to="{ name: 'list' }"
+                    ><a class="btn btn-ghost normal-case text-xl">Easy Hire</a></RouterLink
+                >
+            </div>
+            <div class="navbar-end">
+                <RouterLink :to="{ name: 'new' }"> <a class="btn">Add new</a></RouterLink>
+            </div>
+        </div>
     </header>
     <main class="p-4">
         <slot></slot>
@@ -20,6 +29,6 @@ header {
 }
 
 main {
-    @apply self-center container px-3;
+    @apply self-center container py-5;
 }
 </style>

@@ -8,12 +8,12 @@ const router = createRouter({
             path: '/',
             name: 'list',
             component: HomePage
+        },
+        {
+            path: '/new',
+            name: 'new',
+            component: () => import('../pages/CreateListing.vue')
         }
-        // {
-        //     path: '/about',
-        //     name: 'about',
-        //     component: () => import('../views/AboutView.vue')
-        // }
     ]
 });
 

@@ -1,15 +1,5 @@
-//theme
-@import 'primevue/resources/themes/tailwind-light/theme.css';
-
-//core
-@import 'primevue/resources/primevue.min.css';
-
-body {
-    font-family: var(--font-family);
-}
-
 @tailwind base;
-// @tailwind components;
+@tailwind components;
 @tailwind utilities;
 
 html,
