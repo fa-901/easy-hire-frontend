@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { data } from '@/models/data';
+import router from '@/router';
 </script>
 
 <template>
@@ -14,12 +15,15 @@ import { data } from '@/models/data';
                     </tr>
                 </thead>
                 <tbody>
-                    <RouterLink v-for="job in data" :key="job.id" :to="{ name: 'detail', params: { id: job.id } }">
-                        <tr>
-                            <td>{{ job.title }}</td>
-                            <td>{{ job.description }}</td>
-                        </tr>
-                    </RouterLink>
+                    <tr
+                        class="cursor-pointer"
+                        v-for="job in data"
+                        :key="job.id"
+                        @click="router.push({ name: 'detail', params: { id: job.id } })"
+                    >
+                        <td>{{ job.title }}</td>
+                        <td>{{ job.description }}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
