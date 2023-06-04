@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { JobDescription } from '@/models';
 import { reactive } from 'vue';
 
-const formData = reactive({
+const formData: JobDescription = reactive({
+    id: '',
     title: '',
     description: '',
     responsibilities: [''],
