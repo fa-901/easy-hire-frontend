@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import type { JobDescription } from '@/models';
+import { data } from '@/models/data';
+import { onMounted } from 'vue';
 import { reactive } from 'vue';
+
+const props = defineProps({
+    id: { type: String, required: false }
+});
 
 const formData: JobDescription = reactive({
     id: '',
@@ -8,6 +14,13 @@ const formData: JobDescription = reactive({
     description: '',
     responsibilities: [''],
     requirements: ['']
+});
+
+onMounted(() => {
+    if (props) {
+        const info = data.find((x) => x.id === props.id);
+        Object.assign(formData, info);
+    }
 });
 
 const onSubmit = () => {

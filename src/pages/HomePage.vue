@@ -7,7 +7,6 @@ import router from '@/router';
     <div class="card bg-base-100 shadow-xl">
         <div class="overflow-x-auto">
             <table class="table">
-                <!-- head -->
                 <thead>
                     <tr>
                         <th>Title</th>
