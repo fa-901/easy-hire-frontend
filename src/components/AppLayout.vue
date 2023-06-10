@@ -1,4 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useLoaderStore } from '@/stores/loader';
+
+const store = useLoaderStore();
+</script>
 
 <template>
     <header>
@@ -13,6 +17,7 @@
             </div>
         </div>
     </header>
+    <progress v-if="store.isLoading" class="progress progress-accent"></progress>
     <main class="p-4">
         <slot></slot>
     </main>
@@ -26,6 +31,10 @@ header {
     .title {
         @apply text-3xl;
     }
+}
+
+progress * {
+    @apply rounded-none;
 }
 
 main {
