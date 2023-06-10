@@ -1,6 +1,17 @@
 <script setup lang="ts">
-import { data } from '@/models/data';
+import type { JobDescription } from '@/models';
 import router from '@/router';
+import { JobListingService } from '@/services/jobListingService';
+import type { Ref } from 'vue';
+import { onMounted, ref } from 'vue';
+
+const data: Ref<JobDescription[]> = ref([]);
+
+onMounted(() => {
+    JobListingService.getJobs().then((response) => {
+        data.value = response.data;
+    });
+});
 </script>
 
 <template>

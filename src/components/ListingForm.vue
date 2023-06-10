@@ -37,13 +37,13 @@ const onSubmit = () => {
                     <label class="label">
                         <span class="label-text">Job title</span>
                     </label>
-                    <input v-model="formData.title" type="text" class="input input-bordered w-full" />
+                    <input v-model.trim="formData.title" type="text" class="input input-bordered w-full" />
                 </div>
                 <div class="mb-3">
                     <label class="label">
                         <span class="label-text">Job description</span>
                     </label>
-                    <textarea v-model="formData.description" type="text" class="textarea textarea-bordered w-full">
+                    <textarea v-model.trim="formData.description" type="text" class="textarea textarea-bordered w-full">
                     </textarea>
                 </div>
                 <div class="mb-3">
@@ -52,7 +52,7 @@ const onSubmit = () => {
                     </label>
                     <div v-for="(requirement, index) in formData.requirements" :key="index" class="flex gap-3 mb-2">
                         <input
-                            v-model="formData.requirements[index]"
+                            v-model.trim="formData.requirements[index]"
                             type="text"
                             placeholder="Add Requirement"
                             class="input input-bordered w-full"
@@ -69,7 +69,7 @@ const onSubmit = () => {
                     </label>
                     <div v-for="(requirement, index) in formData.responsibilities" :key="index" class="flex gap-3 mb-2">
                         <input
-                            v-model="formData.responsibilities[index]"
+                            v-model.trim="formData.responsibilities[index]"
                             type="text"
                             placeholder="Add Responsibility"
                             class="input input-bordered w-full"
