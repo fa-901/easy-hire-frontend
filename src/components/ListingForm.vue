@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { JobDescription } from '@/models';
+import { JobListingService } from '@/services/jobListingService';
 import { onMounted, reactive, type PropType } from 'vue';
 
 const props = defineProps({
@@ -9,15 +10,18 @@ const props = defineProps({
 
 const emit = defineEmits<{
     (e: 'cancelEdit'): void;
+    (e: 'update', value: JobDescription): void;
 }>();
 
-const formData: JobDescription = reactive({
+const initialState = {
     id: '',
     title: '',
     description: '',
     responsibilities: [''],
     requirements: ['']
-});
+};
+
+const formData: JobDescription = reactive(initialState);
 
 onMounted(() => {
     if (props.formData) {
@@ -26,7 +30,17 @@ onMounted(() => {
 });
 
 const onSubmit = () => {
-    console.log(formData);
+    if (formData.id) {
+        JobListingService.updateJob(formData.id as number, formData).then((res) => {
+            Object.assign(formData, res.data);
+            emit('update', formData);
+            emit('cancelEdit');
+        });
+    } else {
+        JobListingService.createJob(formData).then(() => {
+            Object.assign(formData, initialState);
+        });
+    }
 };
 </script>
 

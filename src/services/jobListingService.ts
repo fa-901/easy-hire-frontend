@@ -10,4 +10,12 @@ export class JobListingService {
     static getJob(id: number): Promise<AxiosResponse<JobDescription>> {
         return http.get(`job/${id}`);
     }
+
+    static createJob(body: JobDescription): Promise<AxiosResponse<JobDescription>> {
+        return http.post(`job`, body);
+    }
+
+    static updateJob(id: number, body: JobDescription): Promise<AxiosResponse<JobDescription>> {
+        return http.put(`job/${id}`, body);
+    }
 }
