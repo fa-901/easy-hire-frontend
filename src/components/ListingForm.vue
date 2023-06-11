@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import type { JobDescription } from '@/models';
-import { data } from '@/models/data';
-import { onMounted } from 'vue';
-import { reactive } from 'vue';
+import { onMounted, reactive, type PropType } from 'vue';
 
 const props = defineProps({
-    id: { type: String, required: false }
+    id: { type: String, required: false },
+    formData: { type: Object as PropType<JobDescription>, required: false }
 });
+
+const emit = defineEmits<{
+    (e: 'cancelEdit'): void;
+}>();
 
 const formData: JobDescription = reactive({
     id: '',
@@ -17,9 +20,8 @@ const formData: JobDescription = reactive({
 });
 
 onMounted(() => {
-    if (props) {
-        const info = data.find((x) => x.id === props.id);
-        Object.assign(formData, info);
+    if (props.formData) {
+        Object.assign(formData, props.formData);
     }
 });
 
@@ -31,7 +33,12 @@ const onSubmit = () => {
 <template>
     <div class="card bg-base-100 shadow-xl">
         <div class="card-body">
-            <h2 class="card-title">Create / Edit Listing</h2>
+            <div class="flex justify-between">
+                <h2 class="card-title">{{ props.formData ? 'Edit' : 'Create' }} Listing</h2>
+                <button @click="emit('cancelEdit')" v-if="props.formData" class="btn btn-sm btn-warning btn-outline">
+                    Cancel Edit
+                </button>
+            </div>
             <form @submit.prevent class="flex-col gap-2 max-w-lg">
                 <div class="mb-3">
                     <label class="label">

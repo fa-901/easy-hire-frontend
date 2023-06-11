@@ -1,12 +1,20 @@
 <script setup lang="ts">
 import ListingForm from '@/components/ListingForm.vue';
-import { data } from '@/models/data';
-import { ref } from 'vue';
+import type { JobDescription } from '@/models';
+import { JobListingService } from '@/services/jobListingService';
+import type { Ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 const route = useRoute();
 
 const editMode = ref(false);
-const detail = data.find((x) => x.id === route.params.id);
+const detail: Ref<JobDescription | undefined> = ref();
+
+onMounted(() => {
+    JobListingService.getJob(Number(route.params.id)).then((response) => {
+        detail.value = response.data;
+    });
+});
 </script>
 <template>
     <div class="flex gap-3">
@@ -44,7 +52,7 @@ const detail = data.find((x) => x.id === route.params.id);
                     </div>
                 </template>
                 <template v-else>
-                    <ListingForm :id="detail?.id" />
+                    <ListingForm :formData="detail" @cancelEdit="editMode = false" />
                 </template>
             </div>
         </div>
