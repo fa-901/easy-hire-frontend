@@ -18,4 +18,21 @@ export class JobListingService {
     static updateJob(id: number, body: JobDescription): Promise<AxiosResponse<JobDescription>> {
         return http.put(`job/${id}`, body);
     }
+
+    static uploadResume(id: number, resumes: FileList): Promise<AxiosResponse> {
+        const formData = new FormData();
+        for (let i = 0; i < resumes.length; i++) {
+            formData.append(`resumes`, resumes[i]);
+        }
+
+        return http.post(`uploadresume/${id}`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+    }
+
+    static getResume(id: number): Promise<AxiosResponse> {
+        return http.get(`sortedresumes/${id}`);
+    }
 }

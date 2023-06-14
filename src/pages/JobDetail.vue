@@ -67,7 +67,7 @@ onMounted(() => {
         </div>
         <div class="flex-shrink-0 card bg-base-100 shadow-xl w-1/2">
             <div class="card-body">
-                <ResumeUpload />
+                <ResumeUpload :id="Number(route.params.id)" />
             </div>
         </div>
     </div>

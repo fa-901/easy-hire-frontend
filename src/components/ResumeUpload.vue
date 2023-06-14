@@ -1,5 +1,10 @@
 <script setup lang="ts">
+import { JobListingService } from '@/services/jobListingService';
 import { ref, type Ref } from 'vue';
+
+const props = defineProps({
+    id: { type: Number, required: true }
+});
 
 const files: Ref<FileList | undefined> = ref();
 
@@ -8,7 +13,9 @@ const onFileChange = (event: Event) => {
     files.value = target.files as FileList;
 };
 
-const uploadFiles = () => {};
+const uploadFiles = () => {
+    JobListingService.uploadResume(props.id, files.value as FileList);
+};
 </script>
 <template>
     <div class="flex gap-8">
