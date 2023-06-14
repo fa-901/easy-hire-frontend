@@ -9,12 +9,21 @@ import { useRoute } from 'vue-router';
 const route = useRoute();
 
 const editMode = ref(false);
+const resumes: Ref<any[]> = ref([]);
 const detail: Ref<JobDescription | undefined> = ref();
+
+const getResumes = () => {
+    JobListingService.getResume(Number(route.params.id)).then((response) => {
+        resumes.value = response.data;
+    });
+};
 
 onMounted(() => {
     JobListingService.getJob(Number(route.params.id)).then((response) => {
         detail.value = response.data;
     });
+
+    getResumes();
 });
 </script>
 <template>
@@ -67,7 +76,26 @@ onMounted(() => {
         </div>
         <div class="flex-shrink-0 card bg-base-100 shadow-xl w-1/2">
             <div class="card-body">
-                <ResumeUpload :id="Number(route.params.id)" />
+                <div class="flex justify-between">
+                    <ResumeUpload :id="Number(route.params.id)" />
+                    <button class="btn text-3xl" @click="getResumes">🔄️</button>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="cursor-pointer" v-for="r in resumes" :key="r.sort_order">
+                            <th>{{ r.sort_order }}</th>
+                            <td>{{ r.name }}</td>
+                            <td>{{ r.email }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

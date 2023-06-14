@@ -14,7 +14,9 @@ const onFileChange = (event: Event) => {
 };
 
 const uploadFiles = () => {
-    JobListingService.uploadResume(props.id, files.value as FileList);
+    JobListingService.uploadResume(props.id, files.value as FileList).then((res) => {
+        console.log(res);
+    });
 };
 </script>
 <template>
