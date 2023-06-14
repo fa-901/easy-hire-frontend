@@ -12,13 +12,17 @@ const editMode = ref(false);
 const resumes: Ref<any[]> = ref([]);
 const detail: Ref<JobDescription | undefined> = ref();
 
+const loading = ref(false);
+
 const getResumes = () => {
+    loading.value = true;
     JobListingService.getResume(Number(route.params.id)).then((response) => {
-        resumes.value = response.data;
+        loading.value = false;
     });
 };
 
 onMounted(() => {
+    loading.value = true;
     JobListingService.getJob(Number(route.params.id)).then((response) => {
         detail.value = response.data;
     });
@@ -78,6 +82,7 @@ onMounted(() => {
             <div class="card-body">
                 <div class="flex justify-between">
                     <ResumeUpload :id="Number(route.params.id)" />
+                    <span class="loading loading-dots loading-sm" v-if="loading"></span>
                     <button class="btn text-3xl" @click="getResumes">🔄️</button>
                 </div>
                 <table class="table">

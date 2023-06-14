@@ -7,6 +7,7 @@ const props = defineProps({
 });
 
 const files: Ref<FileList | undefined> = ref();
+const loading = ref(false);
 
 const onFileChange = (event: Event) => {
     const target = event.target as HTMLInputElement;
@@ -14,7 +15,9 @@ const onFileChange = (event: Event) => {
 };
 
 const uploadFiles = () => {
+    loading.value = true;
     JobListingService.uploadResume(props.id, files.value as FileList).then((res) => {
+        loading.value = false;
         console.log(res);
     });
 };
@@ -28,6 +31,7 @@ const uploadFiles = () => {
             type="file"
             class="file-input file-input-bordered file-input-primary w-full max-w-xs"
         />
+        <span class="loading loading-dots loading-sm" v-if="loading"></span>
         <button v-if="files" class="btn btn-primary" @click="uploadFiles">Upload Resumes</button>
     </div>
 </template>
