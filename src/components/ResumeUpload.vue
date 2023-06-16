@@ -16,10 +16,13 @@ const onFileChange = (event: Event) => {
 
 const uploadFiles = () => {
     loading.value = true;
-    JobListingService.uploadResume(props.id, files.value as FileList).then((res) => {
-        loading.value = false;
-        console.log(res);
-    });
+    JobListingService.uploadResume(props.id, files.value as FileList)
+        .then((res) => {
+            console.log(res);
+        })
+        .finally(() => {
+            loading.value = false;
+        });
 };
 </script>
 <template>

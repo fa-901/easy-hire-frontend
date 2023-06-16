@@ -16,9 +16,13 @@ const loading = ref(false);
 
 const getResumes = () => {
     loading.value = true;
-    JobListingService.getResume(Number(route.params.id)).then((response) => {
-        loading.value = false;
-    });
+    JobListingService.getResume(Number(route.params.id))
+        .then((response) => {
+            resumes.value = response.data;
+        })
+        .finally(() => {
+            loading.value = false;
+        });
 };
 
 onMounted(() => {
@@ -91,6 +95,7 @@ onMounted(() => {
                             <th>#</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -98,6 +103,16 @@ onMounted(() => {
                             <th>{{ r.sort_order }}</th>
                             <td>{{ r.name }}</td>
                             <td>{{ r.email }}</td>
+                            <td>
+                                <a
+                                    class="btn btn-link"
+                                    :href="`http://127.0.0.1:8000/${r.url}`"
+                                    target="_blank"
+                                    rel="noopener"
+                                >
+                                    Download Resume
+                                </a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
